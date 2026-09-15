@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.FCStd
+*.FCBak
+*.stl
+*.step
+*.3mf
+*.zip
+validation.json
+presentation_validation.json
