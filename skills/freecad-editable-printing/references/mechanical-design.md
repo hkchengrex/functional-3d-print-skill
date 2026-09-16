@@ -1,5 +1,7 @@
 # Mechanical design and printability
 
+For a comparable one-time PLA sliding joint, see the [physically accepted rail-and-latch A reference](tested-slide-latch-a.md). Load it only when relevant; it includes the editable coupon and the limits of its physical test evidence.
+
 ## Print settings and adhesion
 
 
