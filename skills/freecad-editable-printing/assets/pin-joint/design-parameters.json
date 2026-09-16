@@ -1,10 +1,5 @@
 {
-  "reference": "Hammer-installed PLA transverse pin joint",
-  "recorded_date": "2026-09-16",
-  "user_report": "had to hammer it in but it holds the joints together well",
-  "user_decision": "ok let's not change. keep this.",
-  "status": "User-accepted physical coupon; not quantified strength or retention testing",
-  "source_project": "cardholder_pin_test",
+  "reference": "PLA transverse pin joint for force assembly",
   "finished_objects": [
     "TestFront",
     "TestRear",
@@ -12,7 +7,7 @@
   ],
   "printer": "Bambu A1",
   "nozzle_mm": 0.2,
-  "material": "PLA; brand and grade unrecorded",
+  "material": "PLA",
   "layer_height_mm": 0.1,
   "walls": 4,
   "infill": "15% gyroid",
@@ -115,17 +110,5 @@
       ]
     }
   ],
-  "cad_sha256": "171293ce9d5f3d456d30c5609b07d70bd1d3d6246680c6e82d9082ce49d41eda",
-  "project_sha256": "818c15ce5a4a720d22aa362af77031b6a215c03c855f8b45621b6a5f0560a703",
-  "limitations": [
-    "One local coupon only",
-    "Insertion force and actual dimensions unmeasured",
-    "Long-term retention, creep, removal and repeated assembly untested",
-    "Full holder not physically validated"
-  ],
-  "rejected_unbuilt_changes": [
-    "1.7 x 2.3 mm shaft",
-    "1.75 x 2.35 mm shaft",
-    "Four-sided tip taper"
-  ]
+  "assembly_fit": "Force assembly; zero nominal shaft clearance. No rated insertion force or retention load."
 }

@@ -1,20 +1,20 @@
-# Accepted hammer-installed PLA pin joint
+# PLA transverse pin joint for force assembly
 
 Load for comparable one-time joints with a transverse pin through interlocking tabs. This is an optional worked reference, not a default clearance rule.
 
-## Evidence
+## Use and limits
 
-Recorded 2026-09-16. User report: **"had to hammer it in but it holds the joints together well"**. After discussing reduced pin dimensions, the user chose **"ok let's not change. keep this."** Preserve the tested pin. The suggested smaller shafts and four-sided tip taper were not implemented or tested.
+Use for a compact, rigid connection intended for one-time force assembly. The zero-clearance fit can require hammer installation; do not specify it as a hand-press fit. Preserve the shaft dimensions when reproducing this fit.
 
-This establishes qualitative acceptance of one local coupon. Insertion force, printed dimensions, removal, repeated assembly, long-term pin retention, creep, rated strength and full-holder performance were not measured. Hammer installation is an observed result, not a universal assembly instruction.
+No rated insertion force, strength, cycle life or long-term retention is specified. Evaluate those requirements for the target application.
 
 ## Assets
 
-- [Editable coupon](../assets/pin-joint/accepted-pin.FCStd): exact archived test CAD. Finished objects: `TestFront`, `TestRear`, `Right26Pin`. The source holder history remains for native editability; other objects are hidden. Copy before editing.
+- [Editable coupon](../assets/pin-joint/accepted-pin.FCStd): native editable coupon. Finished objects: `TestFront`, `TestRear`, `Right26Pin`. The source holder history remains for native editability; other objects are hidden. Copy before editing.
 - [Test print project](../assets/pin-joint/pin-test.3mf): three single-color parts in the tested orientation.
-- [Test record](../assets/pin-joint/test-record.json): setup, dimensions, transforms and source hashes.
+- [Design parameters](../assets/pin-joint/design-parameters.json): dimensions, print settings and placement transforms.
 
-The CAD is the dimensional authority. This reference intentionally retains the tested crop rather than replacing it with a newly approximated joint.
+The CAD is the dimensional authority. Adapt the native features rather than approximating the joint from an image.
 
 ## Mechanism and dimensions
 
@@ -22,7 +22,7 @@ The rear tongue enters between two front cheeks. A transverse pin prevents front
 
 Coordinates are inherited from the holder: x across width/pin axis, y front-to-back, z height. All dimensions below are mm.
 
-| Feature | Tested geometry |
+| Feature | Geometry |
 |---|---|
 | Coupon crop | x 24..31.4, z 18..34; full original thickness |
 | Shaft / bore cross-section | **1.8 in y × 2.4 in z**, **0 nominal clearance** |
@@ -41,4 +41,4 @@ Bambu A1, 0.2 mm nozzle, PLA (brand/grade unrecorded), 0.10 mm layers, four wall
 
 Front exterior y=-6.1 and rear exterior y=6.1 face the bed. The pin lies on y=1.2 with its length parallel to the bed. Preserve these orientations and bed-to-hole distances for a close reproduction; the bore roofs are short bridges.
 
-Reuse where one-time tight assembly and side access suit the design. Check the enclosing walls, insertion access and load direction when integrating. Do not claim hand assembly or loosen the pin automatically. Do not compare fit variants in a receiver already altered by forced insertion as though it were fresh.
+Reuse where one-time tight assembly and side access suit the design. Check the enclosing walls, insertion access and load direction when integrating. Use a different fit when hand assembly is required. Do not compare fit variants in a receiver already altered by forced insertion as though it were fresh.
