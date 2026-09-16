@@ -8,15 +8,9 @@ Use this short single-rail joint for one-time sliding assembly with a square ret
 
 ## Reusable assets
 
-- [Design parameters](../assets/slide-latch-a/design-parameters.json): dimensions and print settings.
+- [Design parameters](../assets/sliding-latch/design-parameters.json): mechanical dimensions.
 
 Use the profiles and dimensions below to construct native editable features. Preserve the contact profiles when adapting the mechanism. CAD and slicer outputs stay in the local project, outside the repository.
-
-## Print setup
-
-Bambu A1, physical **0.2 mm nozzle**, PLA, **0.10 mm layers**, four walls, 15% gyroid, Arachne. Supports, brim and prime tower OFF. One material/color; the single recessed dot identifies A.
-
-Base prints on its broad exterior face at z=0, with the spring/channel upward. Slider prints upside down on its flat exterior face at z=8.3, with tongue/crossbar building upward. Both orientations keep the long spring direction in the layer plane. These are part-specific conditions, not universal PLA settings.
 
 ## Dimensions (mm)
 
@@ -24,7 +18,7 @@ Base prints on its broad exterior face at z=0, with the spring/channel upward. S
 |---|---:|
 | Free flap length, width, thickness | **22 x 10 x 1.4** |
 | Flap root / free end, y coordinates | 14 / 36 |
-| Tooth shoulder distance from root | **14** (not the full 22 mm free length) |
+| Tooth shoulder distance from root | **14** |
 | Dovetail tongue engagement length | **13.5** |
 | Nominal rail x clearance per side | **0.10** |
 | Nominal tongue-to-channel floor gap | **0.10** |
@@ -34,11 +28,11 @@ Base prints on its broad exterior face at z=0, with the spring/channel upward. S
 | Nominal gap at either notch end | **0** |
 | Nominal tooth engagement | **2.0** |
 
-Zero gaps mean touching nominal CAD surfaces, not intentional material overlap. Do not transfer zero clearance automatically to another printer, nozzle, material, orientation or joint length. The x clearance is measured horizontally at corresponding z values, not normal to the sloped faces.
+Zero gaps mean touching nominal CAD surfaces, not intentional material overlap. Specify fit for the mating geometry and material. The x clearance is measured horizontally at corresponding z values, not normal to the sloped faces.
 
 ## Geometry and axes
 
-Native coordinates: x across the coupon, y along sliding, z through thickness. Dimensions below capture the functional profiles; inspect the native model for support geometry.
+Coordinates: x across the joint, y along sliding, z through thickness.
 
 - Base envelope: x=-6..13.6, y=0..42, floor z=0..2. Free leaf x=-5..5, y=14..36, thickness 1.4. Slots isolate the leaf; its root is at y=14.
 - Tooth profile in (y,z): `(22,1.1), (26.5,3.4), (28,3.4), (28,1.1)`, extruded across x=-5..5. The sloped entry permits assembly; the y=28 face is the square retaining shoulder.
@@ -49,14 +43,12 @@ Native coordinates: x across the coupon, y along sliding, z through thickness. D
 
 The dovetails resist separation normal to the faces; the square tooth/crossbar stop sliding withdrawal. Flap length and thickness control latch compliance; tightening rail clearance alone does not stiffen the flap.
 
-## Assembly constraint worth preserving
+## Assembly
 
-The deep crossbar cannot be dragged over the thick root of the base. Place it **just past the root on the thin leaf**, with the tongue tip before the channel entrance, then feed the rail and slide toward the tooth. In the coupon this starts with slider y offset approximately **-13.75 mm**. The tongue length allows this starting placement. Check available placement access when integrating the joint into a larger assembly.
+The deep crossbar cannot be dragged over the thick root of the base. Place it **just past the root on the thin leaf**, with the tongue tip before the channel entrance, then feed the rail and slide toward the tooth. Start with slider y offset approximately **-13.75 mm**. The tongue length allows this starting placement. Check available placement access when integrating the joint into a larger assembly.
 
 Hold the base at its sides with room beneath the leaf for insertion deflection. Check insertion deflection and root strain when changing the spring geometry. Do not assume repeated-use durability.
 
-## Reuse efficiently
+## Design constraints
 
-Start with this geometry when the load direction and assembly access suit it. Preserve the contact profiles, root-to-tooth distance, print orientation and clearances for a close reproduction. If those change, check the affected sliding/placement paths and spring behavior; use a representative local test where uncertainty remains. Do not silently apply this zero-gap joint to every clip.
-
-Use a shorter single-rail coupon before printing a complete assembly. Keep variants physically identifiable (A used one recessed dot). For irreversible catches, one base cannot independently test multiple fully locked variants; compare partial rail fit first or provide separate bases when full comparisons are required. Reuse the scripted export pipeline and compact reports rather than rewriting FreeCAD/Bambu packaging code.
+Preserve the contact profiles, root-to-tooth distance and clearances when adapting the mechanism. Check placement access, sliding travel and spring deflection after dimensional changes. Multiple rails need sufficient alignment tolerance to avoid binding.

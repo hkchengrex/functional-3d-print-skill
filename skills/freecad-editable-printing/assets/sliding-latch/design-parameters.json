@@ -1,14 +1,6 @@
 {
   "reference": "PLA sliding rail with a one-time latch",
-  "printer": "Bambu A1",
-  "nozzle_mm": 0.2,
   "material": "PLA",
-  "layer_height_mm": 0.1,
-  "walls": 4,
-  "infill": "15% gyroid",
-  "wall_generator": "Arachne",
-  "supports": false,
-  "brim": false,
   "free_flap_mm": {
     "length": 22,
     "width": 10,
@@ -26,5 +18,6 @@
     "gap_to_flap": 0,
     "gap_each_notch_end": 0
   },
-  "tooth_engagement_mm": 2
+  "tooth_engagement_mm": 2,
+  "tooth_shoulder_distance_from_root_mm": 14
 }

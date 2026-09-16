@@ -1,20 +1,6 @@
 {
   "reference": "PLA transverse pin joint for force assembly",
-  "finished_objects": [
-    "TestFront",
-    "TestRear",
-    "Right26Pin"
-  ],
-  "printer": "Bambu A1",
-  "nozzle_mm": 0.2,
   "material": "PLA",
-  "layer_height_mm": 0.1,
-  "walls": 4,
-  "infill": "15% gyroid",
-  "wall_generator": "Arachne",
-  "supports": false,
-  "brim": false,
-  "prime_tower": false,
   "shaft_cross_section_yz_mm": [
     1.8,
     2.4
@@ -24,91 +10,5 @@
   "tongue_x_thickness_mm": 1.8,
   "tongue_clearance_x_per_side_mm": 0.1,
   "tongue_clearance_z_per_end_mm": 0.15,
-  "print_objects": [
-    {
-      "name": "Front test socket",
-      "position": [
-        100,
-        110
-      ],
-      "parts": [
-        {
-          "object": "TestFront",
-          "name": "Front socket",
-          "extruder": 1,
-          "transform": [
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            -1,
-            0,
-            -27.7,
-            26,
-            6.1
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Rear test tongue",
-      "position": [
-        118,
-        110
-      ],
-      "parts": [
-        {
-          "object": "TestRear",
-          "name": "Rear tongue",
-          "extruder": 1,
-          "transform": [
-            1,
-            0,
-            0,
-            0,
-            0,
-            -1,
-            0,
-            1,
-            0,
-            -27.7,
-            -26,
-            6.1
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Zero clearance pin",
-      "position": [
-        135,
-        110
-      ],
-      "parts": [
-        {
-          "object": "Right26Pin",
-          "name": "Same full holder pin",
-          "extruder": 1,
-          "transform": [
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            -1,
-            0,
-            -29.3,
-            26,
-            -1.2
-          ]
-        }
-      ]
-    }
-  ],
   "assembly_fit": "Force assembly; zero nominal shaft clearance. No rated insertion force or retention load."
 }

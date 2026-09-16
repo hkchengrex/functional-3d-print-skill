@@ -10,7 +10,7 @@ No rated insertion force, strength, cycle life or long-term retention is specifi
 
 ## Assets
 
-- [Design parameters](../assets/pin-joint/design-parameters.json): dimensions, print settings and placement transforms.
+- [Design parameters](../assets/pin-joint/design-parameters.json): mechanical dimensions.
 
 Use the dimensions below and the design parameters to construct native editable features. CAD and slicer outputs stay in the local project, outside the repository.
 
@@ -18,11 +18,10 @@ Use the dimensions below and the design parameters to construct native editable 
 
 The rear tongue enters between two front cheeks. A transverse pin prevents front/back separation by bearing against the hole walls. Pin friction resists backing out; the head limits insertion depth. There is no snap catch.
 
-Coordinates are inherited from the holder: x across width/pin axis, y front-to-back, z height. All dimensions below are mm.
+Coordinates: x along the pin axis, y along the tongue insertion direction, z across the joint. All dimensions below are mm.
 
 | Feature | Geometry |
 |---|---|
-| Coupon crop | x 24..31.4, z 18..34; full original thickness |
 | Shaft / bore cross-section | **1.8 in y × 2.4 in z**, **0 nominal clearance** |
 | Shaft envelope before head | x 27.2..30.8, y 1.2..3.0, z 24.8..27.2 |
 | Tip | First 0.35 of length tapers in z only; end width 1.7 in z |
@@ -33,10 +32,6 @@ Coordinates are inherited from the holder: x across width/pin axis, y front-to-b
 
 Zero clearance describes matching CAD surfaces, not measured fit or a guarantee for other geometries. Insert the pin from the outer x side after the halves are seated.
 
-## Print conditions and reuse
+## Design constraints
 
-Bambu A1, 0.2 mm nozzle, PLA (brand/grade unrecorded), 0.10 mm layers, four walls, 15% gyroid, Arachne. Supports, brim and prime tower OFF. Single color.
-
-Front exterior y=-6.1 and rear exterior y=6.1 face the bed. The pin lies on y=1.2 with its length parallel to the bed. Preserve these orientations and bed-to-hole distances for a close reproduction; the bore roofs are short bridges.
-
-Reuse where one-time tight assembly and side access suit the design. Check the enclosing walls, insertion access and load direction when integrating. Use a different fit when hand assembly is required. Do not compare fit variants in a receiver already altered by forced insertion as though it were fresh.
+Provide side access for pin insertion and sufficient wall thickness around the bore. The tongue and cheeks carry separation loads through the pin; friction retains the pin along its axis. Use a separate retaining feature if friction alone is insufficient. Choose a different fit when hand assembly or repeated removal is required.
