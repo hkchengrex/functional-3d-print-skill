@@ -12,6 +12,8 @@ Open the FreeCAD file to adjust dimensions yourself, or ask Codex to refine the 
 - Reduce color changes and waste in multicolor prints.
 - Try small test pieces before committing to a larger print.
 - Preview important styling, fonts, and color choices before the design is finalized.
+- Match validation to the change, with focused checks for small revisions.
+- Reuse scripted FreeCAD and Bambu exports with saved project settings and cached results.
 
 Works with **Bambu Studio, OrcaSlicer, PrusaSlicer, and UltiMaker Cura**. Use your preferred print settings or let Codex suggest them.
 
@@ -41,3 +43,15 @@ Describe what you want to make and share any dimensions or preferences you know.
 - **FreeCAD file (.FCStd)** — an editable model with adjustable dimensions.
 - **Slicer project (.3mf)** — the model arranged for printing with your settings.
 - **Preview and print guidance** — including nozzle, material, layer height, walls, infill, supports, brim, and orientation.
+
+## Repeatable exports
+
+For FreeCAD and Bambu Studio, configure a `print-project.json` once, then run:
+
+```text
+python skills/freecad-editable-printing/scripts/export_project.py /path/to/print-project.json
+```
+
+The pipeline saves and reopens an editable CAD copy, renders a preview, checks solids and meshes, and creates a native Bambu project with verified settings and filament assignments. Detailed logs stay on disk; successful runs return a short JSON summary. Unchanged inputs and outputs use a cache.
+
+See the [manifest and export guide](skills/freecad-editable-printing/references/export-pipeline.md) for setup, dependencies, supported features, and limitations. Geometry design remains a separate step. The automation supports single-plate Bambu projects; other slicers use their native project workflows. CLI checks do not establish desktop preset persistence or physical fit and strength.

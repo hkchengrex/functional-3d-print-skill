@@ -43,8 +43,8 @@ Sources: [Cura project writer](https://github.com/Ultimaker/Cura/blob/main/plugi
 
 ## Check and deliver
 
-Reopen every delivered plate/project in the target slicer. Check actual setting values and inspect relevant layers: brim coverage and bed clearance; lettering strokes and gaps; fin foundations, interfaces, and supported overhangs. Confirm how custom fins are interpreted as model bodies or modifiers.
+For a newly exported plate/project, verify settings persistence in the target slicer; reuse that evidence when the project and relevant inputs are unchanged. Check actual setting values and inspect relevant layers: brim coverage and bed clearance; lettering strokes and gaps; fin foundations, interfaces, and supported overhangs. Confirm how custom fins are interpreted as model bodies or modifiers.
 
-For multicolor work, compare color changes, flushed/tower material, and time estimates across useful layouts. Preserve suitable purge behavior and check appearance/material compatibility for flushing into infill or supports.
+When changing multicolor layout or optimizing waste, compare color changes, flushed/tower material, and time estimates across useful layouts. Preserve suitable purge behavior and check appearance/material compatibility for flushing into infill or supports.
 
-Deliver the configured 3MF alongside the CAD master and preview. Report nozzle, material, layer height, walls, infill, supports, brim, and orientation. Include brim width/gap, wall-generator mode, plate differences, and waste estimates when applicable. Identify the target slicer and distinguish recommendations from saved settings. Explain any remaining application check or project-generation blocker and the step needed to complete it.
+Deliver the configured 3MF alongside the CAD master and preview. Record nozzle, material, layer height, walls, infill, supports, brim, and orientation in the project manifest or guide; summarize changed settings in chat. Include brim width/gap, wall-generator mode, plate differences, and waste estimates when applicable. Identify the target slicer and distinguish recommendations from saved settings. Explain any remaining application check or project-generation blocker and the step needed to complete it.
