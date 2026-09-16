@@ -2,6 +2,8 @@
 
 For a comparable one-time PLA sliding joint, see the [physically accepted rail-and-latch A reference](tested-slide-latch-a.md). Load it only when relevant; it includes the editable coupon and the limits of its physical test evidence.
 
+For a rigid joint assembled with a transverse pin, see the [hammer-installed PLA pin reference](tested-pin-joint.md). The user accepted its zero-clearance coupon after hammer installation; it is not a hand-press fit or a universal clearance recommendation.
+
 ## Print settings and adhesion
 
 

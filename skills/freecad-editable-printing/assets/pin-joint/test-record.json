@@ -1,0 +1,131 @@
+{
+  "reference": "Hammer-installed PLA transverse pin joint",
+  "recorded_date": "2026-09-16",
+  "user_report": "had to hammer it in but it holds the joints together well",
+  "user_decision": "ok let's not change. keep this.",
+  "status": "User-accepted physical coupon; not quantified strength or retention testing",
+  "source_project": "cardholder_pin_test",
+  "finished_objects": [
+    "TestFront",
+    "TestRear",
+    "Right26Pin"
+  ],
+  "printer": "Bambu A1",
+  "nozzle_mm": 0.2,
+  "material": "PLA; brand and grade unrecorded",
+  "layer_height_mm": 0.1,
+  "walls": 4,
+  "infill": "15% gyroid",
+  "wall_generator": "Arachne",
+  "supports": false,
+  "brim": false,
+  "prime_tower": false,
+  "shaft_cross_section_yz_mm": [
+    1.8,
+    2.4
+  ],
+  "nominal_clearance_mm": 0,
+  "tip": "0.35 mm taper in z only; no y taper",
+  "tongue_x_thickness_mm": 1.8,
+  "tongue_clearance_x_per_side_mm": 0.1,
+  "tongue_clearance_z_per_end_mm": 0.15,
+  "print_objects": [
+    {
+      "name": "Front test socket",
+      "position": [
+        100,
+        110
+      ],
+      "parts": [
+        {
+          "object": "TestFront",
+          "name": "Front socket",
+          "extruder": 1,
+          "transform": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            -27.7,
+            26,
+            6.1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rear test tongue",
+      "position": [
+        118,
+        110
+      ],
+      "parts": [
+        {
+          "object": "TestRear",
+          "name": "Rear tongue",
+          "extruder": 1,
+          "transform": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            1,
+            0,
+            -27.7,
+            -26,
+            6.1
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zero clearance pin",
+      "position": [
+        135,
+        110
+      ],
+      "parts": [
+        {
+          "object": "Right26Pin",
+          "name": "Same full holder pin",
+          "extruder": 1,
+          "transform": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            -29.3,
+            26,
+            -1.2
+          ]
+        }
+      ]
+    }
+  ],
+  "cad_sha256": "171293ce9d5f3d456d30c5609b07d70bd1d3d6246680c6e82d9082ce49d41eda",
+  "project_sha256": "818c15ce5a4a720d22aa362af77031b6a215c03c855f8b45621b6a5f0560a703",
+  "limitations": [
+    "One local coupon only",
+    "Insertion force and actual dimensions unmeasured",
+    "Long-term retention, creep, removal and repeated assembly untested",
+    "Full holder not physically validated"
+  ],
+  "rejected_unbuilt_changes": [
+    "1.7 x 2.3 mm shaft",
+    "1.75 x 2.35 mm shaft",
+    "Four-sided tip taper"
+  ]
+}
