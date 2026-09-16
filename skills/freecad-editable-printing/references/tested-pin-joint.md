@@ -10,11 +10,9 @@ No rated insertion force, strength, cycle life or long-term retention is specifi
 
 ## Assets
 
-- [Editable coupon](../assets/pin-joint/accepted-pin.FCStd): native editable coupon. Finished objects: `TestFront`, `TestRear`, `Right26Pin`. The source holder history remains for native editability; other objects are hidden. Copy before editing.
-- [Test print project](../assets/pin-joint/pin-test.3mf): three single-color parts in the tested orientation.
 - [Design parameters](../assets/pin-joint/design-parameters.json): dimensions, print settings and placement transforms.
 
-The CAD is the dimensional authority. Adapt the native features rather than approximating the joint from an image.
+Use the dimensions below and the design parameters to construct native editable features. CAD and slicer outputs stay in the local project, outside the repository.
 
 ## Mechanism and dimensions
 

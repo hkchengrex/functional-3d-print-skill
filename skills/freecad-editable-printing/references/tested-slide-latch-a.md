@@ -8,10 +8,9 @@ Use this short single-rail joint for one-time sliding assembly with a square ret
 
 ## Reusable assets
 
-- [Editable rail-and-latch model](../assets/slide-latch-a/accepted-a.FCStd): native sketches, pads, pockets and parameter sheet; only the base and A slider remain. Copy before editing. Finished bodies are `RailBase` and `RailSlider`.
 - [Design parameters](../assets/slide-latch-a/design-parameters.json): dimensions and print settings.
 
-Use the model as the dimensional authority. Do not regenerate it from screenshots or substitute a different coupon. Preserve the constrained profiles when adapting it. Some sketches use Block constraints; release/edit those deliberately. The parameter sheet is not a guarantee that arbitrary dimension combinations work.
+Use the profiles and dimensions below to construct native editable features. Preserve the contact profiles when adapting the mechanism. CAD and slicer outputs stay in the local project, outside the repository.
 
 ## Print setup
 

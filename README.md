@@ -6,6 +6,8 @@ Open the FreeCAD file to adjust dimensions yourself, or ask Codex to refine the 
 
 ## Features
 
+Repository content is limited to reusable instructions, scripts and lightweight design parameters. Keep FreeCAD and 3MF outputs local; do not commit them or force-add ignored binaries. Use descriptive mechanism names rather than approval labels for references.
+
 - Design holders, mounts, enclosures, and multipart assemblies.
 - Account for fit, strength, print orientation, adhesion, and support removal.
 - Choose lettering that suits the design and your nozzle.

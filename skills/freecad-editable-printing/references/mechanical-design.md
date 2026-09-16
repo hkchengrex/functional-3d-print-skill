@@ -1,6 +1,6 @@
 # Mechanical design and printability
 
-Optional joint references: use the [PLA rail-and-latch geometry](tested-slide-latch-a.md) for sliding assembly, or the [PLA transverse pin geometry](tested-pin-joint.md) for rigid force assembly. Load only the relevant reference; each includes editable geometry, fit dimensions and print orientation.
+Optional joint references: use the [PLA rail-and-latch geometry](tested-slide-latch-a.md) for sliding assembly, or the [PLA transverse pin geometry](tested-pin-joint.md) for rigid force assembly. Load only the relevant reference; each includes fit dimensions and print orientation.
 
 ## Print settings and adhesion
 
