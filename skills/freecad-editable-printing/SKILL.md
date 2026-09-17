@@ -16,6 +16,8 @@ Use editable native bodies, sketches, standard features, and shared parameters w
 
 Ask only for missing dimensions, loads, hardware, material, or slicer choices that materially affect the task. Use established preferences. Distinguish assumptions, digital checks, and physical performance.
 
+Before recommending a test print, verify that its total slicer-estimated time is **strictly less than 30% of the full print time**. Include all test pieces, required fixtures, startup and purge overhead using the intended settings. If it exceeds this budget, reduce the test scope while preserving critical geometry, or recommend printing the full part.
+
 ## Project record and automation
 
 Reuse `print-project.json` beside the project. Record source/master, output paths, runtimes, profiles, part transforms/material slots, intended overrides, and design details to preserve. Keep project-specific preferences in this record, not the global skill.
