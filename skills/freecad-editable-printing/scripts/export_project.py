@@ -1,4 +1,4 @@
-"""Manifest-driven FreeCAD/Bambu export. Standard library only in this process."""
+"""Manifest-driven FreeCAD/Bambu export, one or more plates. Standard library only in this process."""
 import argparse
 import hashlib
 import json
@@ -15,6 +15,14 @@ def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8-sig'))
 
 
+def printable_bounds(m, resolve):
+    """(xmin, xmax, ymin, ymax) of the machine profile's printable area; defaults to 256 mm square."""
+    area = read(resolve(m['bambu']['machine'])).get('printable_area') or []
+    pts = [tuple(float(c) for c in (p.split('x') if isinstance(p, str) else p)) for p in area] or [(0, 0), (256, 256)]
+    xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+    return min(xs), max(xs), min(ys), max(ys)
+
+
 def write(path, data):
     path = Path(path)
     temp = path.with_suffix(path.suffix + '.tmp')
@@ -28,6 +36,7 @@ def run(manifest, force=False):
     assert m.get('schema_version') == 1, 'Unsupported manifest schema_version'
     names = [p['name'] for obj in m['objects'] for p in obj['parts']]
     assert names and len(set(names)) == len(names), 'Part names must be nonempty and unique'
+    plates_used = sorted({int(obj.get('plate', 1)) for obj in m['objects']})
     root = manifest.parent
     resolve = lambda p: (root / p).resolve()
     work = resolve(m.get('work', '.export'))
@@ -123,13 +132,33 @@ def run(manifest, force=False):
                 for obj in m['objects']:
                     for part in obj['parts']:
                         assert actual.get(part['name']) == part['extruder'], f'Missing/changed filament assignment: {part["name"]}'
-                gcodes = [n for n in z.namelist() if n.endswith('.gcode')]
+                assert len(config.findall('plate')) == len(plates_used), 'Native project plate count differs from the manifest'
+                gcodes = sorted(n for n in z.namelist() if n.endswith('.gcode'))
                 if b.get('slice', True):
-                    assert gcodes, 'Native project contains no sliced plate'
+                    assert gcodes == [f'Metadata/plate_{n}.gcode' for n in plates_used], f'Sliced plates {gcodes} do not match manifest plates {plates_used}'
+                xmin, xmax, ymin, ymax = printable_bounds(m, resolve)
+                plates = {}
+                for n in plates_used:
+                    entry = {}
+                    layout = f'Metadata/plate_{n}.json'
+                    if layout in z.namelist():
+                        boxes = json.loads(z.read(layout)).get('bbox_objects', [])
+                        for box in boxes:
+                            x0, y0, x1, y1 = box['bbox']
+                            assert x0 >= xmin - 0.01 and y0 >= ymin - 0.01 and x1 <= xmax + 0.01 and y1 <= ymax + 0.01, f'{box["name"]} lies outside the printable area on plate {n}'
+                        entry['objects'] = [box['name'] for box in boxes]
+                    plates[str(n)] = entry
                 for name in gcodes:
                     text = z.read(name).decode('utf-8', errors='replace')
                     for feature in b.get('forbidden_features', []):
-                        assert not any(line.startswith('; FEATURE:') and feature.lower() in line.lower() for line in text.splitlines()), f'Unexpected {feature} toolpaths'
+                        assert not any(line.startswith('; FEATURE:') and feature.lower() in line.lower() for line in text.splitlines()), f'Unexpected {feature} toolpaths in {name}'
+                    entry = plates[name.split('_')[1].split('.')[0]]
+                    for line in text.splitlines()[:400]:
+                        if line.startswith('; model printing time:'):
+                            entry['estimated_time'] = line.split(':', 1)[1].split(';')[0].strip()
+                        elif line.startswith('; total filament weight [g]'):
+                            entry['filament_g'] = float(line.split(':')[1])
+                report['plates'] = plates
             stage('publish')
             staged.replace(project)
             (work/'geometry.3mf').unlink(missing_ok=True)

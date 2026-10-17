@@ -56,4 +56,4 @@ python skills/freecad-editable-printing/scripts/export_project.py /path/to/print
 
 The pipeline saves and reopens an editable CAD copy, renders a preview, checks solids and meshes, and creates a native Bambu project with verified settings and filament assignments. Detailed logs stay on disk; successful runs return a short JSON summary. Unchanged inputs and outputs use a cache.
 
-See the [manifest and export guide](skills/freecad-editable-printing/references/export-pipeline.md) for setup, dependencies, supported features, and limitations. Geometry design remains a separate step. The automation supports single-plate Bambu projects; other slicers use their native project workflows. CLI checks do not establish desktop preset persistence or physical fit and strength.
+See the [manifest and export guide](skills/freecad-editable-printing/references/export-pipeline.md) for setup, dependencies, supported features, and limitations. Geometry design remains a separate step. The automation supports Bambu projects with one or more plates; other slicers use their native project workflows. CLI checks do not establish desktop preset persistence or physical fit and strength.

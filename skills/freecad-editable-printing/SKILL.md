@@ -28,7 +28,7 @@ For FreeCAD + Bambu, configure once using [export-pipeline.md](references/export
 <python> <skill>/scripts/export_project.py <project>/print-project.json
 ```
 
-The script saves/reopens editable CAD, checks exported solids and closed meshes, renders a preview, creates aligned multipart geometry, exports through Bambu, pins process overrides, and checks CLI-reopened settings/material assignments. It logs details to disk and returns one compact JSON result. Unchanged inputs and outputs use a hash cache; `--force` bypasses it. This is packaging validation, not proof of fit, strength, support removability, or desktop preset persistence.
+The script saves/reopens editable CAD, checks exported solids and closed meshes, renders a preview, creates aligned multipart geometry on one or more plates, exports through Bambu, pins process overrides, and checks CLI-reopened settings/material assignments and per-plate slicing. It logs details to disk and returns one compact JSON result. Unchanged inputs and outputs use a hash cache; `--force` bypasses it. This is packaging validation, not proof of fit, strength, support removability, or desktop preset persistence.
 
 Create geometry with project modeling code first; export only after the requested geometry is settled. Do not regenerate an existing model solely to package it. Preserve native editability. The [enclosure example](scripts/build_enclosure.py) and [presentation example](scripts/save_presentation.py) are for new example projects, not generic exporters; they write beside themselves, so copy them before running.
 

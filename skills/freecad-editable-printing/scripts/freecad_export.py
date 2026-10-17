@@ -11,6 +11,26 @@ import FreeCADGui as G
 import Mesh
 
 
+def printable_bounds(m, resolve):
+    """(xmin, xmax, ymin, ymax) of the machine profile's printable area; defaults to 256 mm square."""
+    b = m.get('bambu', {})
+    area = []
+    if b.get('machine'):
+        area = json.loads(resolve(b['machine']).read_text(encoding='utf-8-sig')).get('printable_area') or []
+    pts = [tuple(float(c) for c in (p.split('x') if isinstance(p, str) else p)) for p in area] or [(0, 0), (256, 256)]
+    xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+    return min(xs), max(xs), min(ys), max(ys)
+
+
+def plate_stride(m, resolve):
+    """Distance between plate origins: the slicer spaces plates by the printable width plus a fifth of it."""
+    stride = m.get('bambu', {}).get('plate_stride')
+    if stride is None:
+        xmin, xmax, _, _ = printable_bounds(m, resolve)
+        stride = (xmax - xmin) * 1.2
+    return float(stride)
+
+
 def main(manifest):
     root = manifest.parent
     m = json.loads(manifest.read_text(encoding='utf-8-sig'))
@@ -62,8 +82,11 @@ def main(manifest):
         return E.SubElement(parent, '{'+ns+'}'+tag, **attrs)
     model = E.Element('{'+ns+'}model', unit='millimeter')
     resources = el(model, 'resources'); build = el(model, 'build'); config = E.Element('config')
-    ident = 0; checks = {}
+    stride = plate_stride(m, resolve)
+    ident = 0; checks = {}; plates = {}
     for obj in m['objects']:
+        plate = int(obj.get('plate', 1))
+        assert plate >= 1, 'plate numbers are one-based'
         part_ids = []
         for part in obj['parts']:
             ident += 1; part_ids.append((ident, part))
@@ -94,7 +117,8 @@ def main(manifest):
         for pid, part in part_ids:
             el(components, 'component', objectid=str(pid))
         xy = obj['position']
-        el(build, 'item', objectid=str(ident), transform=f'1 0 0 0 1 0 0 0 1 {xy[0]} {xy[1]} 0')
+        el(build, 'item', objectid=str(ident), transform=f'1 0 0 0 1 0 0 0 1 {xy[0] + (plate - 1) * stride} {xy[1]} 0')
+        plates.setdefault(plate, []).append(ident)
         co = E.SubElement(config, 'object', id=str(ident))
         E.SubElement(co, 'metadata', key='name', value=obj['name'])
         E.SubElement(co, 'metadata', key='extruder', value=str(obj['parts'][0]['extruder']))
@@ -103,6 +127,15 @@ def main(manifest):
             pp = E.SubElement(co, 'part', id=str(pid), subtype='normal_part')
             for key, value in [('name',part['name']), ('extruder',str(part['extruder']))]:
                 E.SubElement(pp, 'metadata', key=key, value=value)
+    # Plate assignment as the slicer writes it; plate n sits n-1 strides along +x.
+    for n in sorted(plates):
+        plate_el = E.SubElement(config, 'plate')
+        for key, value in [('plater_id', str(n)), ('plater_name', ''), ('locked', 'false')]:
+            E.SubElement(plate_el, 'metadata', key=key, value=value)
+        for i, object_id in enumerate(plates[n]):
+            inst = E.SubElement(plate_el, 'model_instance')
+            for key, value in [('object_id', str(object_id)), ('instance_id', '0'), ('identify_id', str(100*n+i))]:
+                E.SubElement(inst, 'metadata', key=key, value=value)
     with zipfile.ZipFile(work/'geometry.3mf', 'w', zipfile.ZIP_DEFLATED) as z:
         z.writestr('3D/3dmodel.model', E.tostring(model))
         z.writestr('Metadata/model_settings.config', E.tostring(config))
