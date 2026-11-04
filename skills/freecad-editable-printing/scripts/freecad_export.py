@@ -1,5 +1,6 @@
 """Worker executed by FreeCAD's bundled Python; invoked by export_project.py."""
 import json
+import math
 import os
 from pathlib import Path
 import sys
@@ -22,13 +23,19 @@ def printable_bounds(m, resolve):
     return min(xs), max(xs), min(ys), max(ys)
 
 
-def plate_stride(m, resolve):
-    """Distance between plate origins: the slicer spaces plates by the printable width plus a fifth of it."""
-    stride = m.get('bambu', {}).get('plate_stride')
-    if stride is None:
-        xmin, xmax, _, _ = printable_bounds(m, resolve)
-        stride = (xmax - xmin) * 1.2
-    return float(stride)
+def plate_origin(plate, count, m, resolve):
+    """Bed origin of a one-based plate, matching the slicer's layout of `count` plates.
+
+    Plates fill a grid of ceil(sqrt(count)) columns along +x, then continue on rows along -y.
+    The spacing is the printable size plus a fifth of it unless the manifest overrides it.
+    """
+    bambu = m.get('bambu', {})
+    xmin, xmax, ymin, ymax = printable_bounds(m, resolve)
+    stride_x = bambu.get('plate_stride', (xmax - xmin) * 1.2)
+    stride_y = bambu.get('plate_stride_y', (ymax - ymin) * 1.2)
+    columns = math.isqrt(count - 1) + 1
+    row, column = divmod(plate - 1, columns)
+    return column * float(stride_x), -row * float(stride_y)
 
 
 def main(manifest):
@@ -82,7 +89,7 @@ def main(manifest):
         return E.SubElement(parent, '{'+ns+'}'+tag, **attrs)
     model = E.Element('{'+ns+'}model', unit='millimeter')
     resources = el(model, 'resources'); build = el(model, 'build'); config = E.Element('config')
-    stride = plate_stride(m, resolve)
+    plate_count = max(int(obj.get('plate', 1)) for obj in m['objects'])
     ident = 0; checks = {}; plates = {}
     for obj in m['objects']:
         plate = int(obj.get('plate', 1))
@@ -117,7 +124,8 @@ def main(manifest):
         for pid, part in part_ids:
             el(components, 'component', objectid=str(pid))
         xy = obj['position']
-        el(build, 'item', objectid=str(ident), transform=f'1 0 0 0 1 0 0 0 1 {xy[0] + (plate - 1) * stride} {xy[1]} 0')
+        origin = plate_origin(plate, plate_count, m, resolve)
+        el(build, 'item', objectid=str(ident), transform=f'1 0 0 0 1 0 0 0 1 {xy[0] + origin[0]} {xy[1] + origin[1]} 0')
         plates.setdefault(plate, []).append(ident)
         co = E.SubElement(config, 'object', id=str(ident))
         E.SubElement(co, 'metadata', key='name', value=obj['name'])
@@ -127,7 +135,7 @@ def main(manifest):
             pp = E.SubElement(co, 'part', id=str(pid), subtype='normal_part')
             for key, value in [('name',part['name']), ('extruder',str(part['extruder']))]:
                 E.SubElement(pp, 'metadata', key=key, value=value)
-    # Plate assignment as the slicer writes it; plate n sits n-1 strides along +x.
+    # Plate assignment as the slicer writes it; plate_origin gives each plate's position.
     for n in sorted(plates):
         plate_el = E.SubElement(config, 'plate')
         for key, value in [('plater_id', str(n)), ('plater_name', ''), ('locked', 'false')]:

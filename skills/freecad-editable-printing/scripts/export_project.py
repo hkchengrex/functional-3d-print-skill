@@ -37,6 +37,7 @@ def run(manifest, force=False):
     names = [p['name'] for obj in m['objects'] for p in obj['parts']]
     assert names and len(set(names)) == len(names), 'Part names must be nonempty and unique'
     plates_used = sorted({int(obj.get('plate', 1)) for obj in m['objects']})
+    assert plates_used == list(range(1, len(plates_used) + 1)), f'Plates must be numbered from 1 without gaps: {plates_used}'
     root = manifest.parent
     resolve = lambda p: (root / p).resolve()
     work = resolve(m.get('work', '.export'))
@@ -135,7 +136,7 @@ def run(manifest, force=False):
                 assert len(config.findall('plate')) == len(plates_used), 'Native project plate count differs from the manifest'
                 gcodes = sorted(n for n in z.namelist() if n.endswith('.gcode'))
                 if b.get('slice', True):
-                    assert gcodes == [f'Metadata/plate_{n}.gcode' for n in plates_used], f'Sliced plates {gcodes} do not match manifest plates {plates_used}'
+                    assert gcodes == sorted(f'Metadata/plate_{n}.gcode' for n in plates_used), f'Sliced plates {gcodes} do not match manifest plates {plates_used}'
                 xmin, xmax, ymin, ymax = printable_bounds(m, resolve)
                 plates = {}
                 for n in plates_used:
