@@ -21,6 +21,8 @@ Establish force direction, relevant magnitude, sustained or repeated loading, an
 
 Orient critical loads favorably relative to layer strength. Use appropriate walls, ribs, gussets, fillets, and joints; check load transfer through fasteners and connections. Select material for temperature, sustained-load creep, and repeated flexing as applicable. Explain strength/printability tradeoffs and use physical tests to establish uncertain performance.
 
+To stiffen a bar or plate, first make the whole section thicker as one plain shape. The slicer fills it sparsely and the outer skins, now further apart, carry the bending, so it gains more stiffness than a thin rib on a thin plate for little extra material or print time. It is also simpler to edit. Add ribs or gussets only where a full section would block a required opening, exceed a height limit, or add substantial material.
+
 Break complex designs into components and develop them one at a time. Define shared dimensions, mating interfaces, clearances, and assembly order first. Check components individually, then verify alignment, interference, assembly access, and combined function.
 
 Split physical prints when size, orientation, supports, material, maintenance, or assembly justify it. Design alignment and joining features with suitable tolerances. Group compatible parts across as many plates as needed, preserving intended dimensions, quantities, labels, orientation, and bed clearance. Use native multi-plate projects or separate projects according to the slicer's capabilities and setting scope. Report plate contents and assembly instructions.
